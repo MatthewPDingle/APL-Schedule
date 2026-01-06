@@ -6,31 +6,35 @@ A web-based calendar application for viewing and tracking poker tournaments from
 
 This calendar includes the complete APLPT Queensland January 2026 schedule with:
 
-- **49 Events** across 9 days
-- **$650,000+** in guaranteed prize pools
-- **Buy-ins** ranging from $80 to $2,500
+- **45 Main Events** + satellites (92 total schedule entries)
+- **$655,000+** in guaranteed prize pools
+- **Buy-ins** ranging from $45 to $2,500
+- **20+ Dealer Dealt** events
 
 ### Featured Events
 
-| Event | Buy-in | Guarantee |
-|-------|--------|-----------|
-| $100K Invitational | Invite Only | $100,000 |
-| APLPT Main Event | $1,100 | $100,000 |
-| Jackstar Super High Roller | $2,500 | $300,000 |
-| Centurion | $2,500 | $75,000 |
-| Mystery Bounty | $1,100 | $50,000 |
-| Deep Freeze | $600 | $40,000 |
-| Monster Stack | $330 | $30,000 |
-| PLO Championship | $400 | $20,000 |
+| Event | Buy-in | Stack | Blinds | Guarantee |
+|-------|--------|-------|--------|-----------|
+| APL $100K Invitational | Qualifiers Only | 60K | 30m | $100,000 |
+| APLPT Main Event (8 flights) | $480 | 50K | 30m | $100,000 |
+| Jackstar Super High Roller | $1,500 | 80K | 40m | $300,000 |
+| The Centurion | $2,500 | 100K | 45m | $75,000 |
+| Monster Stack | $360 | 75K | 20m | $50,000 |
+| Turbo High Roller | $1,100 | 40K | 20m | $40,000 |
+| APLPT Classic (6 flights) | $180 | 50K | 30m | $30,000 |
+| Sunday Super Stack | $360 | 75K | 20m | $30,000 |
+| Think Fast Five Hundred | $500 | 40K | 20m | $20,000 |
+| One-Shot Freezeout | $250 | 40K | 20m | $10,000 |
 
 ## Features
 
-- Full 9-day schedule view - See all tournament events in one page
-- Color-coded events - Different colors for each event type
-- Advanced filtering - Filter events by type to focus on what interests you
-- Event selection - Mark events you're interested in attending
-- Export schedule - Export your selected events to a text file
-- Responsive design - Works on desktop, tablet, and mobile devices
+- **9-Column Layout** - All days displayed side-by-side for easy comparison
+- **Color-coded events** - Different colors for each event type
+- **Include/Exclude Filters** - Click to include, click again to exclude, click again to reset
+- **Dealer Dealt Badge** - Blue "D" indicator shows dealer-dealt events
+- **Event Details** - Starting stack, blind levels, and re-entry rules
+- **Event Selection** - Click events to build your personal schedule
+- **Export Schedule** - Export your selected events to a text file
 
 ## How to View the Calendar
 
@@ -56,19 +60,53 @@ If using VS Code, install the "Live Server" extension, then right-click `poker-c
 ## Quick Start
 
 1. Open `poker-calendar.html` in your web browser
-2. Browse the full schedule across all 9 days
+2. Browse the full schedule across all 9 days (horizontal scroll if needed)
 3. Click on events to select them (they'll be highlighted)
-4. Use the filters to show only specific event types
-5. Export your selected schedule using the "Export Schedule" button
+4. Use the filters to include or exclude specific event types
+5. Export your selected schedule using the "Export" button
 
 ## Event Type Color Coding
 
-- **Red** - Main Event
-- **Purple** - High Roller / Invitational
-- **Blue** - No Limit Hold'em
-- **Green** - PLO (Pot Limit Omaha)
-- **Orange** - Satellite
-- **Pink** - Bounty
+| Color | Type | Description |
+|-------|------|-------------|
+| Red | Main Event | APLPT Main Event flights and Day 2 |
+| Purple | High Roller | $1,100+ buy-in events (Centurion, Jackstar SHR, etc.) |
+| Blue | NLH | Standard No Limit Hold'em events |
+| Green | PLO | Pot Limit Omaha and mixed games |
+| Orange | Satellite | Qualifier events for larger tournaments |
+| Pink | Bounty | Knockout/bounty format events |
+| Teal | Special | Ladies, Masters (50+), Teams, Pineapple variants |
+
+## Filter System
+
+The filter buttons cycle through three states:
+1. **Neutral** (default) - No filtering applied
+2. **Include** (green with checkmark) - Show ONLY this event type
+3. **Exclude** (red with strikethrough) - Hide this event type
+
+You can combine multiple filters:
+- Include "Main Event" + Include "High Roller" = Shows both types
+- Exclude "Satellite" = Hides satellites, shows everything else
+
+## Event Data Format
+
+Each event in the schedule includes:
+
+```javascript
+{
+    id: 1,
+    event: "#1",              // Event number or "Sat" for satellites
+    title: "Event Name",
+    type: "nlh",              // main-event, high-roller, nlh, plo, satellite, bounty, special
+    time: "12:00 PM",
+    buyin: "$480",
+    stack: "50K",             // Starting stack
+    blinds: "30m",            // Blind level duration
+    reentry: "1 Re-Entry",    // Re-entry rules
+    guarantee: "$100,000",
+    dealer: true              // Dealer dealt (shows "D" badge)
+}
+```
 
 ## File Structure
 
@@ -77,28 +115,6 @@ If using VS Code, install the "Live Server" extension, then right-click `poker-c
 ├── poker-calendar.html          # Main calendar application (includes schedule data)
 ├── extract-schedule-data.js     # Browser console script to extract data from APL website
 └── README.md                    # This file
-```
-
-## Updating Schedule Data
-
-The schedule data is embedded in `poker-calendar.html` starting around line 469. To update:
-
-1. Open `poker-calendar.html` in a text editor
-2. Find the `tournamentData` constant
-3. Modify events using this format:
-
-```javascript
-{
-    id: 1,
-    number: "Event #1",
-    title: "Event Name",
-    type: "main-event",  // Options: main-event, high-roller, no-limit-holdem, plo, satellite, bounty
-    typeLabel: "Main Event",
-    time: "12:00 PM",
-    buyin: "$1,100",
-    guarantee: "$100,000",
-    format: "No Limit Hold'em"
-}
 ```
 
 ## Browser Compatibility
@@ -110,10 +126,11 @@ The schedule data is embedded in `poker-calendar.html` starting around line 469.
 
 ## Tips for Using the Calendar
 
-1. **Planning Your Schedule**: Select all events you're interested in, then use "Selected Only" view to see just your picks
-2. **Finding Similar Events**: Use the event type filters to find all PLO games, satellites, etc.
-3. **Export for Offline**: Use the export feature to create a text file you can reference without internet
-4. **Mobile Use**: The calendar is fully responsive - save the HTML file to your phone for on-the-go access
+1. **Planning Your Schedule**: Select all events you're interested in, then use "Selected" view to see just your picks
+2. **Finding Dealer-Dealt Events**: Look for the blue "D" badge next to the time
+3. **Comparing Buy-ins**: All 9 days are visible at once for easy comparison
+4. **Export for Offline**: Use the export feature to create a text file you can reference without internet
+5. **Mobile Use**: The calendar scrolls horizontally on smaller screens
 
 ## Official Information
 
