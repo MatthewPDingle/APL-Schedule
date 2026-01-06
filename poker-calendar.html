@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APLPT Queensland January 2026 - Tournament Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c92a2a 0%, #e03131 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item strong {
+            font-size: 1.3em;
+            display: block;
+        }
+
+        .filters {
+            padding: 25px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .filter-section {
+            margin-bottom: 15px;
+        }
+
+        .filter-section h3 {
+            margin-bottom: 10px;
+            color: #495057;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .filter-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+
+        .filter-btn .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .filter-btn[data-type="main-event"].active {
+            background: linear-gradient(135deg, #c92a2a, #e03131);
+        }
+
+        .filter-btn[data-type="high-roller"].active {
+            background: linear-gradient(135deg, #5f3dc4, #7950f2);
+        }
+
+        .filter-btn[data-type="no-limit-holdem"].active {
+            background: linear-gradient(135deg, #1971c2, #339af0);
+        }
+
+        .filter-btn[data-type="plo"].active {
+            background: linear-gradient(135deg, #087f5b, #0ca678);
+        }
+
+        .filter-btn[data-type="satellite"].active {
+            background: linear-gradient(135deg, #e67700, #f59f00);
+        }
+
+        .filter-btn[data-type="bounty"].active {
+            background: linear-gradient(135deg, #c2255c, #e64980);
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn.active {
+            background: #1971c2;
+            color: white;
+            border-color: #1971c2;
+        }
+
+        .calendar {
+            padding: 30px;
+        }
+
+        .day-section {
+            margin-bottom: 40px;
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #495057, #6c757d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .day-date {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .event-card {
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+        }
+
+        .event-card.main-event::before { background: linear-gradient(180deg, #c92a2a, #e03131); }
+        .event-card.high-roller::before { background: linear-gradient(180deg, #5f3dc4, #7950f2); }
+        .event-card.no-limit-holdem::before { background: linear-gradient(180deg, #1971c2, #339af0); }
+        .event-card.plo::before { background: linear-gradient(180deg, #087f5b, #0ca678); }
+        .event-card.satellite::before { background: linear-gradient(180deg, #e67700, #f59f00); }
+        .event-card.bounty::before { background: linear-gradient(180deg, #c2255c, #e64980); }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .event-card.selected {
+            border-color: #1971c2;
+            background: #f1f8ff;
+            box-shadow: 0 0 0 3px rgba(25, 113, 194, 0.2);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .event-number {
+            background: #495057;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .favorite-btn.active {
+            color: #ffd700;
+        }
+
+        .event-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #212529;
+        }
+
+        .event-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .event-type.main-event { background: linear-gradient(135deg, #c92a2a, #e03131); }
+        .event-type.high-roller { background: linear-gradient(135deg, #5f3dc4, #7950f2); }
+        .event-type.no-limit-holdem { background: linear-gradient(135deg, #1971c2, #339af0); }
+        .event-type.plo { background: linear-gradient(135deg, #087f5b, #0ca678); }
+        .event-type.satellite { background: linear-gradient(135deg, #e67700, #f59f00); }
+        .event-type.bounty { background: linear-gradient(135deg, #c2255c, #e64980); }
+
+        .event-details {
+            display: grid;
+            gap: 8px;
+            color: #495057;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .event-detail-icon {
+            width: 20px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .event-detail strong {
+            color: #212529;
+        }
+
+        .selected-events {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            max-width: 300px;
+            z-index: 1000;
+        }
+
+        .selected-events h3 {
+            margin-bottom: 10px;
+            color: #212529;
+        }
+
+        .selected-count {
+            background: #1971c2;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-left: 8px;
+        }
+
+        .export-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #1971c2, #339af0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+
+            .selected-events {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎰 APLPT Queensland January 2026</h1>
+            <p>Southport Sharks, Gold Coast</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <strong>45</strong>
+                    <span>Events</span>
+                </div>
+                <div class="stat-item">
+                    <strong>$650,000+</strong>
+                    <span>Guaranteed</span>
+                </div>
+                <div class="stat-item">
+                    <strong>Jan 10-18</strong>
+                    <span>2026</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="filters">
+            <div class="filter-section">
+                <h3>Filter by Event Type</h3>
+                <div class="filter-buttons" id="filterButtons">
+                    <button class="filter-btn active" data-type="all">
+                        Show All
+                    </button>
+                    <button class="filter-btn" data-type="main-event">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #c92a2a, #e03131);"></span>
+                        Main Event
+                    </button>
+                    <button class="filter-btn" data-type="high-roller">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #5f3dc4, #7950f2);"></span>
+                        High Roller
+                    </button>
+                    <button class="filter-btn" data-type="no-limit-holdem">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #1971c2, #339af0);"></span>
+                        NL Hold'em
+                    </button>
+                    <button class="filter-btn" data-type="plo">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #087f5b, #0ca678);"></span>
+                        PLO
+                    </button>
+                    <button class="filter-btn" data-type="satellite">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #e67700, #f59f00);"></span>
+                        Satellite
+                    </button>
+                    <button class="filter-btn" data-type="bounty">
+                        <span class="color-dot" style="background: linear-gradient(135deg, #c2255c, #e64980);"></span>
+                        Bounty
+                    </button>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3>View Options</h3>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="all">All Days</button>
+                    <button class="view-btn" data-view="selected">Selected Only</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar" id="calendar"></div>
+    </div>
+
+    <div class="selected-events hidden" id="selectedPanel">
+        <h3>
+            My Schedule
+            <span class="selected-count" id="selectedCount">0</span>
+        </h3>
+        <button class="export-btn" onclick="exportSelectedEvents()">📅 Export Schedule</button>
+    </div>
+
+    <script>
+        // Tournament data
+        const tournamentData = [
+            {
+                day: "Friday",
+                date: "January 10, 2026",
+                events: [
+                    {
+                        id: 1,
+                        number: "Event #1",
+                        title: "Opening Flight 1A",
+                        type: "main-event",
+                        typeLabel: "Main Event",
+                        time: "12:00 PM",
+                        buyin: "$1,100",
+                        guarantee: "$200,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 2,
+                        number: "Event #2",
+                        title: "NLH Turbo",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "3:00 PM",
+                        buyin: "$150",
+                        guarantee: "$10,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 3,
+                        number: "Event #3",
+                        title: "Main Event Satellite",
+                        type: "satellite",
+                        typeLabel: "Satellite",
+                        time: "6:00 PM",
+                        buyin: "$120",
+                        guarantee: "5 Seats",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Saturday",
+                date: "January 11, 2026",
+                events: [
+                    {
+                        id: 4,
+                        number: "Event #1",
+                        title: "Opening Flight 1B",
+                        type: "main-event",
+                        typeLabel: "Main Event",
+                        time: "12:00 PM",
+                        buyin: "$1,100",
+                        guarantee: "$200,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 5,
+                        number: "Event #4",
+                        title: "PLO Bounty",
+                        type: "bounty",
+                        typeLabel: "Bounty",
+                        time: "2:00 PM",
+                        buyin: "$250",
+                        guarantee: "$15,000",
+                        format: "Pot Limit Omaha"
+                    },
+                    {
+                        id: 6,
+                        number: "Event #5",
+                        title: "The Dealer's Choice",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "5:00 PM",
+                        buyin: "$200",
+                        guarantee: "$12,000",
+                        format: "Mixed Games"
+                    },
+                    {
+                        id: 7,
+                        number: "Event #6",
+                        title: "Late Night Stack",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "8:00 PM",
+                        buyin: "$180",
+                        guarantee: "$8,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Sunday",
+                date: "January 12, 2026",
+                events: [
+                    {
+                        id: 8,
+                        number: "Event #1",
+                        title: "Opening Flight 1C",
+                        type: "main-event",
+                        typeLabel: "Main Event",
+                        time: "12:00 PM",
+                        buyin: "$1,100",
+                        guarantee: "$200,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 9,
+                        number: "Event #7",
+                        title: "Sunday Special",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "2:00 PM",
+                        buyin: "$300",
+                        guarantee: "$25,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 10,
+                        number: "Event #8",
+                        title: "6-Max Bounty Hunter",
+                        type: "bounty",
+                        typeLabel: "Bounty",
+                        time: "5:00 PM",
+                        buyin: "$200",
+                        guarantee: "$15,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Monday",
+                date: "January 13, 2026",
+                events: [
+                    {
+                        id: 11,
+                        number: "Event #1",
+                        title: "Main Event Day 2",
+                        type: "main-event",
+                        typeLabel: "Main Event",
+                        time: "12:00 PM",
+                        buyin: "Day 2",
+                        guarantee: "$200,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 12,
+                        number: "Event #9",
+                        title: "PLO Championship",
+                        type: "plo",
+                        typeLabel: "PLO",
+                        time: "3:00 PM",
+                        buyin: "$550",
+                        guarantee: "$40,000",
+                        format: "Pot Limit Omaha"
+                    },
+                    {
+                        id: 13,
+                        number: "Event #10",
+                        title: "Monster Stack",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "6:00 PM",
+                        buyin: "$250",
+                        guarantee: "$20,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Tuesday",
+                date: "January 14, 2026",
+                events: [
+                    {
+                        id: 14,
+                        number: "Event #11",
+                        title: "High Roller Day 1A",
+                        type: "high-roller",
+                        typeLabel: "High Roller",
+                        time: "2:00 PM",
+                        buyin: "$2,500",
+                        guarantee: "$100,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 15,
+                        number: "Event #12",
+                        title: "Turbo Deepstack",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "5:00 PM",
+                        buyin: "$200",
+                        guarantee: "$12,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 16,
+                        number: "Event #13",
+                        title: "High Roller Satellite",
+                        type: "satellite",
+                        typeLabel: "Satellite",
+                        time: "7:00 PM",
+                        buyin: "$250",
+                        guarantee: "3 Seats",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Wednesday",
+                date: "January 15, 2026",
+                events: [
+                    {
+                        id: 17,
+                        number: "Event #11",
+                        title: "High Roller Day 1B",
+                        type: "high-roller",
+                        typeLabel: "High Roller",
+                        time: "2:00 PM",
+                        buyin: "$2,500",
+                        guarantee: "$100,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 18,
+                        number: "Event #14",
+                        title: "PLO 6-Max",
+                        type: "plo",
+                        typeLabel: "PLO",
+                        time: "3:00 PM",
+                        buyin: "$300",
+                        guarantee: "$18,000",
+                        format: "Pot Limit Omaha"
+                    },
+                    {
+                        id: 19,
+                        number: "Event #15",
+                        title: "Bounty Bonanza",
+                        type: "bounty",
+                        typeLabel: "Bounty",
+                        time: "6:00 PM",
+                        buyin: "$350",
+                        guarantee: "$25,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 20,
+                        number: "Event #16",
+                        title: "Super Satellite Mega",
+                        type: "satellite",
+                        typeLabel: "Satellite",
+                        time: "8:00 PM",
+                        buyin: "$150",
+                        guarantee: "10 Seats",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Thursday",
+                date: "January 16, 2026",
+                events: [
+                    {
+                        id: 21,
+                        number: "Event #11",
+                        title: "High Roller Day 2",
+                        type: "high-roller",
+                        typeLabel: "High Roller",
+                        time: "2:00 PM",
+                        buyin: "Day 2",
+                        guarantee: "$100,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 22,
+                        number: "Event #17",
+                        title: "8-Max Knockout",
+                        type: "bounty",
+                        typeLabel: "Bounty",
+                        time: "4:00 PM",
+                        buyin: "$400",
+                        guarantee: "$30,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 23,
+                        number: "Event #18",
+                        title: "Afternoon Delight",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "7:00 PM",
+                        buyin: "$180",
+                        guarantee: "$10,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Friday",
+                date: "January 17, 2026",
+                events: [
+                    {
+                        id: 24,
+                        number: "Event #19",
+                        title: "Super High Roller",
+                        type: "high-roller",
+                        typeLabel: "High Roller",
+                        time: "3:00 PM",
+                        buyin: "$5,000",
+                        guarantee: "$150,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 25,
+                        number: "Event #20",
+                        title: "PLO Hi-Lo Championship",
+                        type: "plo",
+                        typeLabel: "PLO",
+                        time: "5:00 PM",
+                        buyin: "$400",
+                        guarantee: "$25,000",
+                        format: "Pot Limit Omaha Hi-Lo"
+                    },
+                    {
+                        id: 26,
+                        number: "Event #21",
+                        title: "Friday Night Feature",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "7:00 PM",
+                        buyin: "$250",
+                        guarantee: "$20,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            },
+            {
+                day: "Saturday",
+                date: "January 18, 2026",
+                events: [
+                    {
+                        id: 27,
+                        number: "Event #1",
+                        title: "Main Event Final Day",
+                        type: "main-event",
+                        typeLabel: "Main Event",
+                        time: "12:00 PM",
+                        buyin: "Final Table",
+                        guarantee: "$200,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 28,
+                        number: "Event #22",
+                        title: "The Closer - Mega Stack",
+                        type: "no-limit-holdem",
+                        typeLabel: "NL Hold'em",
+                        time: "3:00 PM",
+                        buyin: "$350",
+                        guarantee: "$30,000",
+                        format: "No Limit Hold'em"
+                    },
+                    {
+                        id: 29,
+                        number: "Event #23",
+                        title: "Mystery Bounty Finale",
+                        type: "bounty",
+                        typeLabel: "Bounty",
+                        time: "6:00 PM",
+                        buyin: "$500",
+                        guarantee: "$50,000",
+                        format: "No Limit Hold'em"
+                    }
+                ]
+            }
+        ];
+
+        let selectedEvents = new Set();
+        let currentFilter = 'all';
+        let currentView = 'all';
+
+        // Initialize calendar
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+
+            tournamentData.forEach(day => {
+                const daySection = document.createElement('div');
+                daySection.className = 'day-section';
+                daySection.dataset.day = day.date;
+
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `
+                    <div class="day-title">${day.day}</div>
+                    <div class="day-date">${day.date}</div>
+                `;
+
+                const eventsGrid = document.createElement('div');
+                eventsGrid.className = 'events-grid';
+
+                day.events.forEach(event => {
+                    if (shouldShowEvent(event)) {
+                        const eventCard = createEventCard(event);
+                        eventsGrid.appendChild(eventCard);
+                    }
+                });
+
+                if (eventsGrid.children.length > 0) {
+                    daySection.appendChild(dayHeader);
+                    daySection.appendChild(eventsGrid);
+                    calendar.appendChild(daySection);
+                }
+            });
+        }
+
+        function createEventCard(event) {
+            const card = document.createElement('div');
+            card.className = `event-card ${event.type}`;
+            if (selectedEvents.has(event.id)) {
+                card.classList.add('selected');
+            }
+            card.dataset.eventId = event.id;
+            card.dataset.eventType = event.type;
+
+            card.innerHTML = `
+                <div class="event-header">
+                    <span class="event-number">${event.number}</span>
+                    <button class="favorite-btn ${selectedEvents.has(event.id) ? 'active' : ''}" onclick="toggleEvent(${event.id}, event)">
+                        ${selectedEvents.has(event.id) ? '⭐' : '☆'}
+                    </button>
+                </div>
+                <div class="event-title">${event.title}</div>
+                <span class="event-type ${event.type}">${event.typeLabel}</span>
+                <div class="event-details">
+                    <div class="event-detail">
+                        <span class="event-detail-icon">🕐</span>
+                        <span>${event.time}</span>
+                    </div>
+                    <div class="event-detail">
+                        <span class="event-detail-icon">💰</span>
+                        <strong>Buy-in:</strong> ${event.buyin}
+                    </div>
+                    <div class="event-detail">
+                        <span class="event-detail-icon">🏆</span>
+                        <strong>Guarantee:</strong> ${event.guarantee}
+                    </div>
+                    <div class="event-detail">
+                        <span class="event-detail-icon">🎲</span>
+                        <span>${event.format}</span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('favorite-btn')) {
+                    toggleEvent(event.id);
+                }
+            });
+
+            return card;
+        }
+
+        function shouldShowEvent(event) {
+            const matchesFilter = currentFilter === 'all' || event.type === currentFilter;
+            const matchesView = currentView === 'all' || selectedEvents.has(event.id);
+            return matchesFilter && matchesView;
+        }
+
+        function toggleEvent(eventId, e) {
+            if (e) {
+                e.stopPropagation();
+            }
+
+            if (selectedEvents.has(eventId)) {
+                selectedEvents.delete(eventId);
+            } else {
+                selectedEvents.add(eventId);
+            }
+
+            updateSelectedPanel();
+            renderCalendar();
+        }
+
+        function updateSelectedPanel() {
+            const panel = document.getElementById('selectedPanel');
+            const count = document.getElementById('selectedCount');
+
+            count.textContent = selectedEvents.size;
+
+            if (selectedEvents.size > 0) {
+                panel.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        function exportSelectedEvents() {
+            const selected = [];
+
+            tournamentData.forEach(day => {
+                day.events.forEach(event => {
+                    if (selectedEvents.has(event.id)) {
+                        selected.push({
+                            day: day.day,
+                            date: day.date,
+                            event: event.title,
+                            number: event.number,
+                            type: event.typeLabel,
+                            time: event.time,
+                            buyin: event.buyin,
+                            guarantee: event.guarantee,
+                            format: event.format
+                        });
+                    }
+                });
+            });
+
+            const text = selected.map(e =>
+                `${e.day}, ${e.date}\n${e.number}: ${e.event}\n${e.type} - ${e.format}\nTime: ${e.time}\nBuy-in: ${e.buyin} | Guarantee: ${e.guarantee}\n`
+            ).join('\n---\n\n');
+
+            const blob = new Blob([`MY APLPT QUEENSLAND SCHEDULE\n\n${text}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'APLPT-Queensland-My-Schedule.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Filter buttons
+        document.getElementById('filterButtons').addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.dataset.type;
+                renderCalendar();
+            }
+        });
+
+        // View controls
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentView = e.target.dataset.view;
+                renderCalendar();
+            });
+        });
+
+        // Initial render
+        renderCalendar();
+    </script>
+</body>
+</html>
