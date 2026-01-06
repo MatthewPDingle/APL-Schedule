@@ -412,8 +412,14 @@
                 date: "Jan 10",
                 fullDate: "Saturday, January 10, 2026",
                 events: [
-                    { id: 1, event: "Invitational", title: "APL $100,000 Invitational Day 1", type: "high-roller", time: "12:00 PM", buyin: "Invite Only", stack: "60K", blinds: "30m", reentry: "-", guarantee: "$100,000", dealer: true },
-                    { id: 2, event: "#1", title: "APLPT Queensland Opening Event", type: "nlh", time: "4:00 PM", buyin: "$80", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "$5,000", dealer: false }
+                    { id: 1, event: "Invitational", title: "APL $100,000 Invitational Day 1", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "60K", blinds: "30m", reentry: "-", guarantee: "-", dealer: true },
+                    { id: 2, event: "#1", title: "APLPT Queensland Opening Event", type: "nlh", time: "4:00 PM", buyin: "$80", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "$5,000", dealer: false },
+                    { id: 3, event: "#2", title: "One-Shot Freezeout", type: "nlh", time: "4:00 PM", buyin: "$250", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "$10,000", dealer: true },
+                    { id: 4, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 5, event: "Sat", title: "Sunday Super Stack Satellite", type: "satellite", time: "7:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 6, event: "#3", title: "Main Event Flight 1", type: "main-event", time: "7:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 7, event: "#4", title: "Crazy Pineapple", type: "special", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 8, event: "Sat", title: "Sunday Super Stack Satellite", type: "satellite", time: "9:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -421,12 +427,16 @@
                 date: "Jan 11",
                 fullDate: "Sunday, January 11, 2026",
                 events: [
-                    { id: 3, event: "Invitational", title: "$100K Invitational Day 2", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "-", blinds: "-", reentry: "-", guarantee: "$100,000", dealer: true },
-                    { id: 4, event: "#3", title: "Main Event Flight 1", type: "main-event", time: "12:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 5, event: "#4", title: "NLH 6-Max", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 6, event: "#5", title: "Opening Event Day 2", type: "nlh", time: "2:00 PM", buyin: "Qualifiers", stack: "-", blinds: "20m", reentry: "-", guarantee: "$5,000", dealer: false },
-                    { id: 7, event: "#6", title: "Sunday Special Bounty", type: "bounty", time: "4:00 PM", buyin: "$150", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 8, event: "Sat", title: "Turbo High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                    { id: 9, event: "Sat", title: "Sunday Super Stack Satellite", type: "satellite", time: "11:00 AM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "5 Seats", dealer: false },
+                    { id: 10, event: "Invitational", title: "APL $100,000 Invitational Day 2", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "60K", blinds: "30m", reentry: "-", guarantee: "$100,000", dealer: true },
+                    { id: 11, event: "#5", title: "Sunday Super Stack", type: "nlh", time: "12:00 PM", buyin: "$360", stack: "75K", blinds: "20m", reentry: "Unlimited", guarantee: "$30,000", dealer: true },
+                    { id: 12, event: "#6", title: "H.O.P. (NLH, PLO, Pineapple)", type: "special", time: "2:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 13, event: "#7", title: "Sunday NLH", type: "nlh", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 14, event: "#8", title: "5-Card PLO", type: "plo", time: "4:00 PM", buyin: "$460", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 15, event: "Sat", title: "Think Fast 500 Satellite", type: "satellite", time: "5:00 PM", buyin: "$60", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 16, event: "#9", title: "APLPT Classic Flight 1", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 17, event: "#10", title: "Think Fast Five Hundred", type: "nlh", time: "7:00 PM", buyin: "$500", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "$20,000", dealer: true },
+                    { id: 18, event: "Sat", title: "Turbo High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$125", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -434,11 +444,14 @@
                 date: "Jan 12",
                 fullDate: "Monday, January 12, 2026",
                 events: [
-                    { id: 9, event: "#7", title: "Monster Stack Mania", type: "nlh", time: "11:00 AM", buyin: "$280", stack: "100K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 10, event: "#8", title: "Monday NLH", type: "nlh", time: "2:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 11, event: "#9", title: "APLPT Classic Flight 1", type: "nlh", time: "4:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
-                    { id: 12, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 13, event: "#10", title: "Monday Triple", type: "nlh", time: "8:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "3 Re-Entries", guarantee: "-", dealer: false }
+                    { id: 19, event: "Sat", title: "Turbo High Roller Satellite", type: "satellite", time: "12:00 PM", buyin: "$125", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 20, event: "#11", title: "Turbo High Roller", type: "high-roller", time: "2:00 PM", buyin: "$1,100", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "$40,000", dealer: true },
+                    { id: 21, event: "#12", title: "Monday Megastack", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "50K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 22, event: "#13", title: "Six Hundred Six Max", type: "nlh", time: "4:00 PM", buyin: "$600", stack: "60K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 23, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 24, event: "#9", title: "APLPT Classic Flight 2", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 25, event: "#14", title: "Monday Mayhem (Hyper Turbo)", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 26, event: "Sat", title: "Survivor Bounty Satellite", type: "satellite", time: "9:00 PM", buyin: "$130", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -446,15 +459,15 @@
                 date: "Jan 13",
                 fullDate: "Tuesday, January 13, 2026",
                 events: [
-                    { id: 14, event: "Sat", title: "Survivor Bounty Satellite", type: "satellite", time: "1:00 PM", buyin: "$130", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
-                    { id: 15, event: "#15", title: "Survivor Bounty Day 1", type: "bounty", time: "2:00 PM", buyin: "$1,150", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 16, event: "#16", title: "One And Done Freezeout", type: "nlh", time: "2:00 PM", buyin: "$150", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: false },
-                    { id: 17, event: "#17", title: "Tuesday Target Freezeout", type: "nlh", time: "4:00 PM", buyin: "$300", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
-                    { id: 18, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 19, event: "#18", title: "Bankroll Booster", type: "nlh", time: "6:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 20, event: "#3", title: "Main Event Flight 2", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 21, event: "#19", title: "Tuesday Triple", type: "nlh", time: "8:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "2 Re-Entries", guarantee: "-", dealer: false },
-                    { id: 22, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                    { id: 27, event: "Sat", title: "Survivor Bounty Satellite", type: "satellite", time: "1:00 PM", buyin: "$130", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
+                    { id: 28, event: "#15", title: "Survivor Bounty Day 1", type: "bounty", time: "2:00 PM", buyin: "$1,150", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 29, event: "#16", title: "One And Done Freezeout", type: "nlh", time: "2:00 PM", buyin: "$150", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: false },
+                    { id: 30, event: "#17", title: "Tuesday Target Freezeout", type: "nlh", time: "4:00 PM", buyin: "$300", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
+                    { id: 31, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 32, event: "#18", title: "Bankroll Booster", type: "nlh", time: "6:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 33, event: "#3", title: "Main Event Flight 2", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 34, event: "#19", title: "Tuesday Triple", type: "nlh", time: "8:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "2 Re-Entries", guarantee: "-", dealer: false },
+                    { id: 35, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -462,16 +475,16 @@
                 date: "Jan 14",
                 fullDate: "Wednesday, January 14, 2026",
                 events: [
-                    { id: 23, event: "#20", title: "Double-Bullet Deepstack", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "-", dealer: false },
-                    { id: 24, event: "#15", title: "Survivor Bounty Day 2", type: "bounty", time: "2:00 PM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "-", dealer: true },
-                    { id: 25, event: "#9", title: "APLPT Classic Flight 3", type: "nlh", time: "2:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
-                    { id: 26, event: "Sat", title: "Centurion Satellite", type: "satellite", time: "3:00 PM", buyin: "$270", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
-                    { id: 27, event: "#21", title: "The Centurion Day 1", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "45m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
-                    { id: 28, event: "#22", title: "NLH 6-Max", type: "nlh", time: "4:00 PM", buyin: "$400", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 29, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 30, event: "#3", title: "Main Event Flight 3", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 31, event: "#23", title: "Hyper Turbo NLH", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 32, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "9:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                    { id: 36, event: "#20", title: "Double-Bullet Deepstack", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "-", dealer: false },
+                    { id: 37, event: "#15", title: "Survivor Bounty Day 2", type: "bounty", time: "2:00 PM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "-", dealer: true },
+                    { id: 38, event: "#9", title: "APLPT Classic Flight 3", type: "nlh", time: "2:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 39, event: "Sat", title: "Centurion Satellite", type: "satellite", time: "3:00 PM", buyin: "$270", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
+                    { id: 40, event: "#21", title: "The Centurion Day 1", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "45m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 41, event: "#22", title: "NLH 6-Max", type: "nlh", time: "4:00 PM", buyin: "$400", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 42, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 43, event: "#3", title: "Main Event Flight 3", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 44, event: "#23", title: "Hyper Turbo NLH", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 45, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "9:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -479,18 +492,18 @@
                 date: "Jan 15",
                 fullDate: "Thursday, January 15, 2026",
                 events: [
-                    { id: 33, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "1:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "3 Seats", dealer: false },
-                    { id: 34, event: "#24", title: "Deep Freeze", type: "nlh", time: "2:00 PM", buyin: "$600", stack: "60K", blinds: "30m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
-                    { id: 35, event: "#25", title: "NLH 6-Max $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 36, event: "#26", title: "Masters NLH (50+)", type: "special", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 37, event: "#21", title: "The Centurion Day 2", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "60m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
-                    { id: 38, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "4:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 39, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 40, event: "#3", title: "Main Event Flight 4", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 41, event: "#27", title: "PLO 8-Max", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 42, event: "#9", title: "APLPT Classic Flight 4", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
-                    { id: 43, event: "#28", title: "Thursday Throwdown", type: "nlh", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 44, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                    { id: 46, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "1:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "3 Seats", dealer: false },
+                    { id: 47, event: "#24", title: "Deep Freeze", type: "nlh", time: "2:00 PM", buyin: "$600", stack: "60K", blinds: "30m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
+                    { id: 48, event: "#25", title: "NLH 6-Max $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 49, event: "#26", title: "Masters NLH (50+)", type: "special", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 50, event: "#21", title: "The Centurion Day 2", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "60m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 51, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "4:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 52, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 53, event: "#3", title: "Main Event Flight 4", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 54, event: "#27", title: "PLO 8-Max", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 55, event: "#9", title: "APLPT Classic Flight 4", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 56, event: "#28", title: "Thursday Throwdown", type: "nlh", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 57, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -498,22 +511,22 @@
                 date: "Jan 16",
                 fullDate: "Friday, January 16, 2026",
                 events: [
-                    { id: 45, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "11:00 AM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 46, event: "#9", title: "APLPT Classic Flight 5", type: "nlh", time: "11:00 AM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
-                    { id: 47, event: "#3", title: "Main Event Flight 5", type: "main-event", time: "12:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 48, event: "#21", title: "The Centurion Final", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "100K", blinds: "45m", reentry: "-", guarantee: "$75,000", dealer: true },
-                    { id: 49, event: "#29", title: "Sharks Turbo Deepstack", type: "nlh", time: "1:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 50, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "1:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 51, event: "#30", title: "Big Bounty Hunter ($150/KO)", type: "bounty", time: "2:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 52, event: "#31", title: "Jackstar Super High Roller D1", type: "high-roller", time: "3:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$300,000", dealer: true },
-                    { id: 53, event: "#32", title: "NLH Terminator ($20/KO)", type: "bounty", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 54, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 55, event: "#3", title: "Main Event Flight 6", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 56, event: "#33", title: "NLH/PLO Mixed", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 57, event: "#9", title: "APLPT Classic Flight 6 Turbo", type: "nlh", time: "6:30 PM", buyin: "$180", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
-                    { id: 58, event: "#34", title: "Ladies Event", type: "special", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 59, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 60, event: "#35", title: "Friday Freezeout", type: "nlh", time: "9:00 PM", buyin: "$120", stack: "30K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
+                    { id: 58, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "11:00 AM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 59, event: "#9", title: "APLPT Classic Flight 5", type: "nlh", time: "11:00 AM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 60, event: "#3", title: "Main Event Flight 5", type: "main-event", time: "12:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 61, event: "#21", title: "The Centurion Final", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "100K", blinds: "45m", reentry: "-", guarantee: "$75,000", dealer: true },
+                    { id: 62, event: "#29", title: "Sharks Turbo Deepstack", type: "nlh", time: "1:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 63, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "1:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 64, event: "#30", title: "Big Bounty Hunter ($150/KO)", type: "bounty", time: "2:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 65, event: "#31", title: "Jackstar Super High Roller D1", type: "high-roller", time: "3:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$300,000", dealer: true },
+                    { id: 66, event: "#32", title: "NLH Terminator ($20/KO)", type: "bounty", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 67, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 68, event: "#3", title: "Main Event Flight 6", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 69, event: "#33", title: "NLH/PLO Mixed", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 70, event: "#9", title: "APLPT Classic Flight 6 Turbo", type: "nlh", time: "6:30 PM", buyin: "$180", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 71, event: "#34", title: "Ladies Event", type: "special", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 72, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 73, event: "#35", title: "Friday Freezeout", type: "nlh", time: "9:00 PM", buyin: "$120", stack: "30K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -521,18 +534,18 @@
                 date: "Jan 17",
                 fullDate: "Saturday, January 17, 2026",
                 events: [
-                    { id: 61, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "11:00 AM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "2 Seats", dealer: false },
-                    { id: 62, event: "#3", title: "Main Event Flight 7", type: "main-event", time: "11:00 AM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 63, event: "#9", title: "APLPT Classic Day 2", type: "nlh", time: "11:30 AM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "$30,000", dealer: false },
-                    { id: 64, event: "#31", title: "Jackstar Super High Roller D2", type: "high-roller", time: "12:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$300,000", dealer: true },
-                    { id: 65, event: "#36", title: "NLH Mini High Roller", type: "nlh", time: "1:00 PM", buyin: "$460", stack: "50K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 66, event: "#37", title: "The Big NLH $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 67, event: "Sat", title: "Shot Clock Satellite", type: "satellite", time: "4:00 PM", buyin: "$125", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 68, event: "#38", title: "NLH 6-Max Shot Clock", type: "nlh", time: "5:00 PM", buyin: "$1,100", stack: "40K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 69, event: "#39", title: "NLH Teams Event", type: "special", time: "6:00 PM", buyin: "$200", stack: "40K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 70, event: "#3", title: "Main Event Flight 8 Turbo", type: "main-event", time: "7:30 PM", buyin: "$480", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
-                    { id: 71, event: "#40", title: "Saturday Night Hyper", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 72, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "9:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                    { id: 74, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "11:00 AM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "2 Seats", dealer: false },
+                    { id: 75, event: "#3", title: "Main Event Flight 7", type: "main-event", time: "11:00 AM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 76, event: "#9", title: "APLPT Classic Day 2", type: "nlh", time: "11:30 AM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "$30,000", dealer: false },
+                    { id: 77, event: "#31", title: "Jackstar Super High Roller D2", type: "high-roller", time: "12:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$300,000", dealer: true },
+                    { id: 78, event: "#36", title: "NLH Mini High Roller", type: "nlh", time: "1:00 PM", buyin: "$460", stack: "50K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 79, event: "#37", title: "The Big NLH $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 80, event: "Sat", title: "Shot Clock Satellite", type: "satellite", time: "4:00 PM", buyin: "$125", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 81, event: "#38", title: "NLH 6-Max Shot Clock", type: "nlh", time: "5:00 PM", buyin: "$1,100", stack: "40K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 82, event: "#39", title: "NLH Teams Event", type: "special", time: "6:00 PM", buyin: "$200", stack: "40K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 83, event: "#3", title: "Main Event Flight 8 Turbo", type: "main-event", time: "7:30 PM", buyin: "$480", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "$100,000", dealer: true },
+                    { id: 84, event: "#40", title: "Saturday Night Hyper", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 85, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "9:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
             {
@@ -540,13 +553,13 @@
                 date: "Jan 18",
                 fullDate: "Sunday, January 18, 2026",
                 events: [
-                    { id: 73, event: "#3", title: "Main Event Day 2", type: "main-event", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "40m", reentry: "-", guarantee: "$100,000", dealer: true },
-                    { id: 74, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "11:00 AM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "5 Seats", dealer: false },
-                    { id: 75, event: "#41", title: "Monster Stack", type: "nlh", time: "12:00 PM", buyin: "$360", stack: "75K", blinds: "20m", reentry: "Unlimited", guarantee: "$50,000", dealer: true },
-                    { id: 76, event: "#42", title: "PLO", type: "plo", time: "1:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 77, event: "#43", title: "Sunday NLH", type: "nlh", time: "3:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 78, event: "#44", title: "Shot Clock Terminator ($200/KO)", type: "bounty", time: "4:00 PM", buyin: "$660", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 79, event: "#45", title: "Freezeout Finisher", type: "nlh", time: "5:00 PM", buyin: "$120", stack: "20K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
+                    { id: 86, event: "#3", title: "Main Event Day 2", type: "main-event", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "40m", reentry: "-", guarantee: "$100,000", dealer: true },
+                    { id: 87, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "11:00 AM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "5 Seats", dealer: false },
+                    { id: 88, event: "#41", title: "Monster Stack", type: "nlh", time: "12:00 PM", buyin: "$360", stack: "75K", blinds: "20m", reentry: "Unlimited", guarantee: "$50,000", dealer: true },
+                    { id: 89, event: "#42", title: "PLO", type: "plo", time: "1:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 90, event: "#43", title: "Sunday NLH", type: "nlh", time: "3:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 91, event: "#44", title: "Shot Clock Terminator ($200/KO)", type: "bounty", time: "4:00 PM", buyin: "$660", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 92, event: "#45", title: "Freezeout Finisher", type: "nlh", time: "5:00 PM", buyin: "$120", stack: "20K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
                 ]
             }
         ];
