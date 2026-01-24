@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APL NQ Classic February 2026 - Tournament Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1971c2 0%, #339af0 100%);
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            font-size: 1.4em;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .stat-item strong {
+            margin-right: 4px;
+        }
+
+        .filters {
+            padding: 10px 15px;
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 4px 10px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #adb5bd;
+        }
+
+        .filter-btn .color-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .filter-btn.include {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .filter-btn.exclude {
+            border-color: #dc3545;
+            background: #f8d7da;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .filter-btn .state-icon {
+            font-size: 0.7em;
+            margin-left: 2px;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 6px;
+            margin-left: auto;
+        }
+
+        .view-btn {
+            padding: 4px 10px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .view-btn.active {
+            background: #1971c2;
+            color: white;
+            border-color: #1971c2;
+        }
+
+        .calendar-wrapper {
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(200px, 1fr));
+            gap: 6px;
+            min-width: 1200px;
+        }
+
+        .day-column {
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #495057, #6c757d);
+            color: white;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .day-name {
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .day-date {
+            font-size: 0.7em;
+            opacity: 0.9;
+        }
+
+        .events-list {
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-height: 200px;
+        }
+
+        .event-card {
+            border-radius: 4px;
+            padding: 5px 6px;
+            background: white;
+            border-left: 4px solid #ccc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.7em;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .event-card:hover {
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transform: translateX(2px);
+        }
+
+        .event-card.selected {
+            background: #e7f5ff;
+            box-shadow: 0 0 0 2px #339af0;
+        }
+
+        .event-card.main-event { border-left-color: #e03131; }
+        .event-card.high-roller { border-left-color: #7950f2; }
+        .event-card.nlh { border-left-color: #339af0; }
+        .event-card.plo { border-left-color: #0ca678; }
+        .event-card.satellite { border-left-color: #f59f00; }
+        .event-card.bounty { border-left-color: #e64980; }
+        .event-card.special { border-left-color: #20c997; }
+
+        .event-time {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .event-title {
+            font-weight: 600;
+            color: #212529;
+            line-height: 1.2;
+            margin: 2px 0;
+        }
+
+        .event-info {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.3;
+        }
+
+        .event-buyin {
+            font-weight: 600;
+            color: #087f5b;
+        }
+
+        .event-details {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        .dealer-badge {
+            display: inline-block;
+            background: #4263eb;
+            color: white;
+            padding: 0px 4px;
+            border-radius: 2px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 3px;
+        }
+
+        .selected-panel {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: white;
+            padding: 12px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .selected-panel.hidden {
+            display: none;
+        }
+
+        .selected-count {
+            background: #1971c2;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .export-btn {
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #1971c2, #339af0);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+
+        .export-btn:hover {
+            opacity: 0.9;
+        }
+
+        .legend {
+            display: flex;
+            gap: 10px;
+            padding: 6px 15px;
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.7em;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+        }
+
+        .filter-instructions {
+            font-size: 0.7em;
+            color: #888;
+            padding: 2px 8px;
+            background: #f1f3f4;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>APL NQ Classic February 2026 - The Ville Resort-Casino</h1>
+            <div class="stats">
+                <div class="stat-item"><strong>65</strong>Events</div>
+                <div class="stat-item"><strong>$750K+</strong>GTD</div>
+                <div class="stat-item"><strong>14</strong>Dealer Dealt</div>
+            </div>
+        </header>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e03131"></div>Main Event</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#7950f2"></div>High Roller</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#339af0"></div>NLH</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0ca678"></div>PLO</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#f59f00"></div>Satellite</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#e64980"></div>Bounty</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#20c997"></div>Special</div>
+            <div class="legend-item"><span class="dealer-badge">D</span> = Dealer Dealt</div>
+        </div>
+
+        <div class="filters">
+            <span class="filter-label">Filters:</span>
+            <div class="filter-group" id="filterButtons">
+                <button class="filter-btn" data-type="main-event">
+                    <span class="color-dot" style="background:#e03131"></span>
+                    Main Event
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="high-roller">
+                    <span class="color-dot" style="background:#7950f2"></span>
+                    High Roller
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="nlh">
+                    <span class="color-dot" style="background:#339af0"></span>
+                    NLH
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="plo">
+                    <span class="color-dot" style="background:#0ca678"></span>
+                    PLO
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="satellite">
+                    <span class="color-dot" style="background:#f59f00"></span>
+                    Satellite
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="bounty">
+                    <span class="color-dot" style="background:#e64980"></span>
+                    Bounty
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="special">
+                    <span class="color-dot" style="background:#20c997"></span>
+                    Special
+                    <span class="state-icon"></span>
+                </button>
+            </div>
+            <span class="filter-instructions">Click to cycle: Include / Exclude / Reset</span>
+            <div class="view-controls">
+                <button class="view-btn active" data-view="all">All</button>
+                <button class="view-btn" data-view="selected">Selected</button>
+            </div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar" id="calendar"></div>
+        </div>
+    </div>
+
+    <div class="selected-panel hidden" id="selectedPanel">
+        <span>My Schedule</span>
+        <span class="selected-count" id="selectedCount">0</span>
+        <button class="export-btn" onclick="exportSelectedEvents()">Export</button>
+    </div>
+
+    <script>
+        // APL NQ Classic February 2026 - Official Schedule
+        const tournamentData = [
+            {
+                day: "Tue",
+                date: "Feb 10",
+                fullDate: "Tuesday, February 10, 2026",
+                events: [
+                    { id: 1, event: "Sat", title: "NQ Classic Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 2, event: "#1", title: "One-Shot Freezeout", type: "nlh", time: "6:00 PM", buyin: "$250", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "$10,000", dealer: true },
+                    { id: 3, event: "#2", title: "NQ Classic Opening Event", type: "nlh", time: "6:00 PM", buyin: "$80", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 4, event: "ME", title: "NQ Classic Main Event Flight 1", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 5, event: "Sat", title: "NQ Classic Main Event Satellite", type: "satellite", time: "7:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 6, event: "#3", title: "Crazy Pineapple", type: "special", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 7, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false }
+                ]
+            },
+            {
+                day: "Wed",
+                date: "Feb 11",
+                fullDate: "Wednesday, February 11, 2026",
+                events: [
+                    { id: 8, event: "#4", title: "Double-Bullet Deepstack", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "-", dealer: false },
+                    { id: 9, event: "ME", title: "NQ Classic Main Event Flight 2", type: "main-event", time: "2:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 10, event: "#5", title: "NLH 6-Max", type: "nlh", time: "4:00 PM", buyin: "$400", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 11, event: "Sat", title: "The Centurion Satellite", type: "satellite", time: "4:00 PM", buyin: "$270", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
+                    { id: 12, event: "Sat", title: "NQ Classic Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 13, event: "#6", title: "APLPT Classic Flight 1", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$20,000", dealer: false },
+                    { id: 14, event: "#7", title: "The Centurion Day 1", type: "high-roller", time: "6:00 PM", buyin: "$2,500", stack: "100K", blinds: "45m", reentry: "Unlimited", guarantee: "$50,000", dealer: true },
+                    { id: 15, event: "#8", title: "5-Card PLO", type: "plo", time: "7:00 PM", buyin: "$460", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 16, event: "#9", title: "One And Done Freezeout", type: "nlh", time: "8:00 PM", buyin: "$150", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: false },
+                    { id: 17, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "9:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false }
+                ]
+            },
+            {
+                day: "Thu",
+                date: "Feb 12",
+                fullDate: "Thursday, February 12, 2026",
+                events: [
+                    { id: 18, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "11:00 AM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "2 Seats", dealer: false },
+                    { id: 19, event: "#6", title: "APLPT Classic Flight 2", type: "nlh", time: "12:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$20,000", dealer: false },
+                    { id: 20, event: "#10", title: "Deep Freeze", type: "nlh", time: "12:00 PM", buyin: "$600", stack: "60K", blinds: "30m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
+                    { id: 21, event: "#11", title: "NLH120 6-Max", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 22, event: "#12", title: "Masters NLH (50+)", type: "special", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 23, event: "#7", title: "The Centurion Day 2", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "60m", reentry: "-", guarantee: "$50,000", dealer: true },
+                    { id: 24, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "4:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 25, event: "Sat", title: "NQ Classic Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 26, event: "ME", title: "NQ Classic Main Event Flight 3", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 27, event: "#13", title: "PLO 8-Max", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 28, event: "#6", title: "APLPT Classic Flight 3", type: "nlh", time: "6:30 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$20,000", dealer: false },
+                    { id: 29, event: "#14", title: "Thursday Throwdown", type: "nlh", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 30, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false }
+                ]
+            },
+            {
+                day: "Fri",
+                date: "Feb 13",
+                fullDate: "Friday, February 13, 2026",
+                events: [
+                    { id: 31, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "11:00 AM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 32, event: "#6", title: "APLPT Classic Flight 4", type: "nlh", time: "11:00 AM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$20,000", dealer: false },
+                    { id: 33, event: "#7", title: "The Centurion Final", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "100K", blinds: "60m", reentry: "-", guarantee: "$50,000", dealer: true },
+                    { id: 34, event: "ME", title: "NQ Classic Main Event Flight 4", type: "main-event", time: "12:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 35, event: "#15", title: "Ville Resort Turbo Deepstack", type: "nlh", time: "1:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 36, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "1:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 37, event: "#16", title: "The Big Bounty Hunter", type: "bounty", time: "2:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 38, event: "#17", title: "Jackstar Super High Roller Day 1", type: "high-roller", time: "3:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 39, event: "#18", title: "NLH Terminator ($20/KO)", type: "bounty", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 40, event: "Sat", title: "NLH Mini High Roller Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 41, event: "#19", title: "NLH/PLO Mixed", type: "special", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 42, event: "ME", title: "NQ Classic Main Event Flight 5", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 43, event: "#6", title: "APLPT Classic Flight 5 Turbo", type: "nlh", time: "6:30 PM", buyin: "$180", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "$20,000", dealer: false },
+                    { id: 44, event: "#20", title: "Ladies Event", type: "special", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 45, event: "#21", title: "Friday Freezeout", type: "nlh", time: "9:00 PM", buyin: "$120", stack: "30K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false },
+                    { id: 46, event: "Sat", title: "NLH Mini High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false }
+                ]
+            },
+            {
+                day: "Sat",
+                date: "Feb 14",
+                fullDate: "Saturday, February 14, 2026",
+                events: [
+                    { id: 47, event: "Sat", title: "NLH Mini High Roller Satellite", type: "satellite", time: "11:00 AM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "2 Seats", dealer: false },
+                    { id: 48, event: "ME", title: "NQ Classic Main Event Flight 6", type: "main-event", time: "11:00 AM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 49, event: "#6", title: "APLPT Classic Day 2", type: "nlh", time: "11:30 AM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "$20,000", dealer: false },
+                    { id: 50, event: "#17", title: "Jackstar Super High Roller Day 2", type: "high-roller", time: "12:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 51, event: "#22", title: "NLH Mini High Roller", type: "high-roller", time: "1:00 PM", buyin: "$460", stack: "50K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 52, event: "#23", title: "The Big NLH120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 53, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "4:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false },
+                    { id: 54, event: "#24", title: "Think Fast Five Hundred", type: "nlh", time: "5:00 PM", buyin: "$500", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 55, event: "#25", title: "NLH Teams Event", type: "special", time: "6:00 PM", buyin: "$200", stack: "40K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 56, event: "ME", title: "NQ Classic Main Event Flight 7 Turbo", type: "main-event", time: "7:30 PM", buyin: "$480", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 57, event: "#26", title: "Saturday Night Hyper Turbo", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "20K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 58, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "9:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "1 in 10", dealer: false }
+                ]
+            },
+            {
+                day: "Sun",
+                date: "Feb 15",
+                fullDate: "Sunday, February 15, 2026",
+                events: [
+                    { id: 59, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "11:00 AM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "5 Seats", dealer: false },
+                    { id: 60, event: "ME", title: "NQ Classic Main Event Day 2", type: "main-event", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "40m", reentry: "-", guarantee: "$75,000", dealer: true },
+                    { id: 61, event: "#27", title: "Monster Stack", type: "nlh", time: "12:00 PM", buyin: "$360", stack: "75K", blinds: "20m", reentry: "Unlimited", guarantee: "$30,000", dealer: true },
+                    { id: 62, event: "#28", title: "PLO", type: "plo", time: "1:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 63, event: "#29", title: "Sunday NLH", type: "nlh", time: "3:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 64, event: "#30", title: "NLH Shot Clock Terminator ($200/KO)", type: "bounty", time: "4:00 PM", buyin: "$660", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 65, event: "#31", title: "Freezeout Finisher", type: "nlh", time: "5:00 PM", buyin: "$120", stack: "20K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
+                ]
+            }
+        ];
+
+        let selectedEvents = new Set();
+        let currentView = 'all';
+        let filterStates = {
+            'main-event': null,
+            'high-roller': null,
+            'nlh': null,
+            'plo': null,
+            'satellite': null,
+            'bounty': null,
+            'special': null
+        };
+
+        function renderCalendar() {
+            const calendar = document.getElementById('calendar');
+            calendar.innerHTML = '';
+
+            tournamentData.forEach(day => {
+                const column = document.createElement('div');
+                column.className = 'day-column';
+
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.innerHTML = `<div class="day-name">${day.day}</div><div class="day-date">${day.date}</div>`;
+
+                const eventsList = document.createElement('div');
+                eventsList.className = 'events-list';
+
+                day.events.forEach(event => {
+                    if (shouldShowEvent(event)) {
+                        const card = createEventCard(event, day);
+                        eventsList.appendChild(card);
+                    }
+                });
+
+                column.appendChild(header);
+                column.appendChild(eventsList);
+                calendar.appendChild(column);
+            });
+        }
+
+        function createEventCard(event, day) {
+            const card = document.createElement('div');
+            card.className = `event-card ${event.type}`;
+            if (selectedEvents.has(event.id)) {
+                card.classList.add('selected');
+            }
+            card.dataset.eventId = event.id;
+
+            const dealerBadge = event.dealer ? '<span class="dealer-badge">D</span>' : '';
+
+            card.innerHTML = `
+                <div class="event-time">${event.time} ${dealerBadge}</div>
+                <div class="event-title">${event.title}</div>
+                <div class="event-info">
+                    <span class="event-buyin">${event.buyin}</span>
+                </div>
+                <div class="event-details">${event.stack} / ${event.blinds}${event.guarantee !== '-' ? ' / ' + event.guarantee : ''}</div>
+            `;
+
+            card.addEventListener('click', () => toggleEvent(event.id));
+            return card;
+        }
+
+        function shouldShowEvent(event) {
+            if (currentView === 'selected' && !selectedEvents.has(event.id)) {
+                return false;
+            }
+
+            const includes = Object.entries(filterStates).filter(([k, v]) => v === 'include').map(([k]) => k);
+            const excludes = Object.entries(filterStates).filter(([k, v]) => v === 'exclude').map(([k]) => k);
+
+            if (excludes.includes(event.type)) {
+                return false;
+            }
+
+            if (includes.length > 0 && !includes.includes(event.type)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        function toggleEvent(eventId) {
+            if (selectedEvents.has(eventId)) {
+                selectedEvents.delete(eventId);
+            } else {
+                selectedEvents.add(eventId);
+            }
+            updateSelectedPanel();
+            renderCalendar();
+        }
+
+        function updateSelectedPanel() {
+            const panel = document.getElementById('selectedPanel');
+            const count = document.getElementById('selectedCount');
+            count.textContent = selectedEvents.size;
+            panel.classList.toggle('hidden', selectedEvents.size === 0);
+        }
+
+        function exportSelectedEvents() {
+            const selected = [];
+            tournamentData.forEach(day => {
+                day.events.forEach(event => {
+                    if (selectedEvents.has(event.id)) {
+                        selected.push({ ...event, fullDate: day.fullDate });
+                    }
+                });
+            });
+
+            const text = selected.map(e =>
+                `${e.fullDate}\n${e.event}: ${e.title}\nTime: ${e.time} | Buy-in: ${e.buyin}\nStack: ${e.stack} | Blinds: ${e.blinds} | Re-entry: ${e.reentry}\nGuarantee: ${e.guarantee} | Dealer Dealt: ${e.dealer ? 'Yes' : 'No'}`
+            ).join('\n\n---\n\n');
+
+            const blob = new Blob([`APL NQ CLASSIC FEBRUARY 2026 - MY SCHEDULE\nThe Ville Resort-Casino, Townsville\n\n${text}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'NQ-Classic-2026-Schedule.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function cycleFilterState(type) {
+            const current = filterStates[type];
+            if (current === null) {
+                filterStates[type] = 'include';
+            } else if (current === 'include') {
+                filterStates[type] = 'exclude';
+            } else {
+                filterStates[type] = null;
+            }
+            updateFilterButtons();
+            renderCalendar();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+                const type = btn.dataset.type;
+                const state = filterStates[type];
+                const icon = btn.querySelector('.state-icon');
+
+                btn.classList.remove('include', 'exclude');
+                if (state === 'include') {
+                    btn.classList.add('include');
+                    icon.textContent = '\u2713';
+                } else if (state === 'exclude') {
+                    btn.classList.add('exclude');
+                    icon.textContent = '\u2717';
+                } else {
+                    icon.textContent = '';
+                }
+            });
+        }
+
+        document.getElementById('filterButtons').addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (btn && btn.dataset.type) {
+                cycleFilterState(btn.dataset.type);
+            }
+        });
+
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentView = e.target.dataset.view;
+                renderCalendar();
+            });
+        });
+
+        renderCalendar();
+    </script>
+</body>
+</html>
