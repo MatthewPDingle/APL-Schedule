@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>APLPT Queensland May 2026 - Mobile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #c92a2a 0%, #e03131 100%);
+            color: white;
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .venue {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .day-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: #fff;
+            border-bottom: 2px solid #dee2e6;
+            position: sticky;
+            top: 106px;
+            z-index: 99;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .day-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .day-tab {
+            flex: 0 0 auto;
+            padding: 12px 16px;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .day-tab.active {
+            color: #c92a2a;
+            border-bottom-color: #c92a2a;
+        }
+
+        .day-tab .tab-date {
+            display: block;
+            font-size: 0.75em;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        .filters-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filters-toggle button {
+            padding: 8px 14px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+
+        .filters-panel {
+            display: none;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .filters-panel.open {
+            display: block;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .filter-btn .color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .filter-btn.include {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .filter-btn.exclude {
+            border-color: #dc3545;
+            background: #f8d7da;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .events-container {
+            padding: 12px;
+        }
+
+        .day-section {
+            display: none;
+        }
+
+        .day-section.active {
+            display: block;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-left: 5px solid #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .event-card:active {
+            transform: scale(0.98);
+        }
+
+        .event-card.selected {
+            background: #e7f5ff;
+            box-shadow: 0 0 0 2px #339af0;
+        }
+
+        .event-card.main-event { border-left-color: #e03131; }
+        .event-card.high-roller { border-left-color: #7950f2; }
+        .event-card.nlh { border-left-color: #339af0; }
+        .event-card.plo { border-left-color: #0ca678; }
+        .event-card.satellite { border-left-color: #f59f00; }
+        .event-card.bounty { border-left-color: #e64980; }
+        .event-card.special { border-left-color: #20c997; }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .event-time {
+            font-weight: bold;
+            color: #495057;
+            font-size: 0.9em;
+        }
+
+        .dealer-badge {
+            background: #4263eb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .event-title {
+            font-weight: 600;
+            color: #212529;
+            font-size: 1em;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.85em;
+        }
+
+        .event-detail {
+            background: #f1f3f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #495057;
+        }
+
+        .event-detail.buyin {
+            background: #d3f9d8;
+            color: #087f5b;
+            font-weight: 600;
+        }
+
+        .event-detail.guarantee {
+            background: #fff3bf;
+            color: #e67700;
+            font-weight: 600;
+        }
+
+        .legend {
+            padding: 12px 16px;
+            background: #fff;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 0.75em;
+            border-bottom: 1px solid #eee;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .selected-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 14px 16px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .selected-panel.visible {
+            display: flex;
+        }
+
+        .selected-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selected-count {
+            background: #c92a2a;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .export-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #c92a2a, #e03131);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 40px 20px;
+            color: #868e96;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-btn {
+            padding: 8px 14px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+        }
+
+        .view-btn.active {
+            background: #c92a2a;
+            color: white;
+            border-color: #c92a2a;
+        }
+
+        body.has-selection {
+            padding-bottom: 70px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>APLPT Queensland May 2026</h1>
+        <div class="venue">Southport Sharks, Gold Coast</div>
+        <div class="stats">
+            <div class="stat-item"><strong>34</strong> Events</div>
+            <div class="stat-item"><strong>$750K+</strong> GTD</div>
+            <div class="stat-item"><strong>16</strong> Dealer Dealt</div>
+        </div>
+    </header>
+
+    <div class="day-tabs" id="dayTabs"></div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#e03131"></div>Main</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7950f2"></div>High Roller</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#339af0"></div>NLH</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0ca678"></div>PLO</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59f00"></div>Satellite</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e64980"></div>Bounty</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#20c997"></div>Special</div>
+    </div>
+
+    <div class="filters-toggle">
+        <div class="view-toggle">
+            <button class="view-btn active" data-view="all">All</button>
+            <button class="view-btn" data-view="selected">Selected</button>
+        </div>
+        <button id="filterToggleBtn">Filters</button>
+    </div>
+
+    <div class="filters-panel" id="filtersPanel">
+        <div class="filter-group" id="filterButtons">
+            <button class="filter-btn" data-type="main-event">
+                <span class="color-dot" style="background:#e03131"></span>Main
+            </button>
+            <button class="filter-btn" data-type="high-roller">
+                <span class="color-dot" style="background:#7950f2"></span>High Roller
+            </button>
+            <button class="filter-btn" data-type="nlh">
+                <span class="color-dot" style="background:#339af0"></span>NLH
+            </button>
+            <button class="filter-btn" data-type="plo">
+                <span class="color-dot" style="background:#0ca678"></span>PLO
+            </button>
+            <button class="filter-btn" data-type="satellite">
+                <span class="color-dot" style="background:#f59f00"></span>Satellite
+            </button>
+            <button class="filter-btn" data-type="bounty">
+                <span class="color-dot" style="background:#e64980"></span>Bounty
+            </button>
+            <button class="filter-btn" data-type="special">
+                <span class="color-dot" style="background:#20c997"></span>Special
+            </button>
+        </div>
+    </div>
+
+    <div class="events-container" id="eventsContainer"></div>
+
+    <div class="selected-panel" id="selectedPanel">
+        <div class="selected-info">
+            <span>My Schedule</span>
+            <span class="selected-count" id="selectedCount">0</span>
+        </div>
+        <button class="export-btn" onclick="exportSelectedEvents()">Export</button>
+    </div>
+
+    <script>
+        const tournamentData = [
+            {
+                day: "Mon",
+                date: "May 11",
+                fullDate: "Monday, May 11, 2026",
+                events: [
+                    { id: 1, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 2, event: "#2", title: "Main Event Flight 1", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 3, event: "#1", title: "APLPT Queensland Opening Event", type: "nlh", time: "6:00 PM", buyin: "$80", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "$10,000", dealer: false },
+                    { id: 4, event: "#3", title: "One-Shot Freezeout", type: "nlh", time: "6:00 PM", buyin: "$250", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "$25,000", dealer: true },
+                    { id: 5, event: "#4", title: "Crazy Pineapple", type: "special", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 6, event: "Sat", title: "Monster Freeze Satellite", type: "satellite", time: "8:00 PM", buyin: "$130", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Tue",
+                date: "May 12",
+                fullDate: "Tuesday, May 12, 2026",
+                events: [
+                    { id: 7, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "4:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 8, event: "#5", title: "Monster Freeze Day 1", type: "high-roller", time: "4:00 PM", buyin: "$1,200", stack: "80K", blinds: "30m", reentry: "No Re-Entry", guarantee: "$50,000", dealer: true },
+                    { id: 9, event: "#6", title: "APLPT Classic Flight 1", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 10, event: "#2", title: "Main Event Flight 2", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 11, event: "#7", title: "Fast Freezeout", type: "nlh", time: "7:00 PM", buyin: "$80", stack: "30K", blinds: "10m", reentry: "No Re-Entry", guarantee: "$5,000", dealer: false },
+                    { id: 12, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "7:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 13, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Wed",
+                date: "May 13",
+                fullDate: "Wednesday, May 13, 2026",
+                events: [
+                    { id: 14, event: "#8", title: "Double-Bullet Deepstack", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "-", dealer: false },
+                    { id: 15, event: "#6", title: "APLPT Classic Flight 2", type: "nlh", time: "2:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 16, event: "#9", title: "NLH 6-Max", type: "nlh", time: "4:00 PM", buyin: "$400", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 17, event: "#5", title: "Monster Freeze Day 2", type: "high-roller", time: "4:00 PM", buyin: "Qualifiers", stack: "80K", blinds: "30m", reentry: "-", guarantee: "$50,000", dealer: true },
+                    { id: 18, event: "Sat", title: "Centurion Satellite", type: "satellite", time: "4:00 PM", buyin: "$270", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "1 Seat", dealer: false },
+                    { id: 19, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 20, event: "#10", title: "The Centurion Day 1", type: "high-roller", time: "6:00 PM", buyin: "$2,500", stack: "100K", blinds: "45m", reentry: "Unlimited", guarantee: "$100,000", dealer: true },
+                    { id: 21, event: "#2", title: "Main Event Flight 3", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 22, event: "#11", title: "PLO Terminator ($100/KO)", type: "bounty", time: "7:00 PM", buyin: "$460", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 23, event: "#12", title: "One And Done Freezeout", type: "nlh", time: "7:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "No Re-Entry", guarantee: "$10,000", dealer: false },
+                    { id: 24, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "9:00 PM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Thu",
+                date: "May 14",
+                fullDate: "Thursday, May 14, 2026",
+                events: [
+                    { id: 25, event: "Sat", title: "Deep Freeze Satellite", type: "satellite", time: "11:00 AM", buyin: "$70", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "3 Seats", dealer: false },
+                    { id: 26, event: "#6", title: "APLPT Classic Flight 3", type: "nlh", time: "12:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 27, event: "#13", title: "Deep Freeze", type: "nlh", time: "12:00 PM", buyin: "$600", stack: "60K", blinds: "30m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
+                    { id: 28, event: "#14", title: "NLH 6-Max $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 29, event: "#10", title: "The Centurion Day 2", type: "high-roller", time: "4:00 PM", buyin: "$2,500", stack: "100K", blinds: "60m", reentry: "Unlimited", guarantee: "$100,000", dealer: true },
+                    { id: 30, event: "#15", title: "Masters NLH (50+)", type: "special", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 31, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "4:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 32, event: "Sat", title: "Main Event Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 33, event: "#2", title: "Main Event Flight 4", type: "main-event", time: "5:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 34, event: "#16", title: "PLO 8-Max", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 35, event: "#6", title: "APLPT Classic Flight 4", type: "nlh", time: "6:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 36, event: "#17", title: "Thursday Throwdown", type: "nlh", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 37, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Fri",
+                date: "May 15",
+                fullDate: "Friday, May 15, 2026",
+                events: [
+                    { id: 38, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "11:00 AM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 39, event: "#2", title: "Main Event Flight 5", type: "main-event", time: "11:00 AM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 40, event: "#10", title: "The Centurion Final", type: "high-roller", time: "12:00 PM", buyin: "Qualifiers", stack: "100K", blinds: "60m", reentry: "-", guarantee: "$100,000", dealer: true },
+                    { id: 41, event: "#6", title: "APLPT Classic Flight 5", type: "nlh", time: "12:00 PM", buyin: "$180", stack: "50K", blinds: "30m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 42, event: "Sat", title: "Jackstar SHR Satellite", type: "satellite", time: "1:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 43, event: "#18", title: "Sharks Turbo Deepstack", type: "nlh", time: "1:00 PM", buyin: "$120", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 44, event: "#19", title: "Big Bounty Hunter ($150/KO)", type: "bounty", time: "2:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 45, event: "#20", title: "Jackstar Super High Roller D1", type: "high-roller", time: "3:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$200,000", dealer: true },
+                    { id: 46, event: "#21", title: "NLH Terminator ($20/KO)", type: "bounty", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 47, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "5:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 48, event: "#2", title: "Main Event Flight 6", type: "main-event", time: "6:00 PM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 49, event: "#22", title: "NLH/PLO Mixed", type: "plo", time: "6:00 PM", buyin: "$360", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 50, event: "#6", title: "APLPT Classic Flight 6 Turbo", type: "nlh", time: "6:30 PM", buyin: "$180", stack: "50K", blinds: "15m", reentry: "Unlimited", guarantee: "$30,000", dealer: false },
+                    { id: 51, event: "#23", title: "Ladies Event", type: "special", time: "7:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 52, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "9:00 PM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 53, event: "#24", title: "Friday Freezeout", type: "nlh", time: "9:00 PM", buyin: "$120", stack: "30K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Sat",
+                date: "May 16",
+                fullDate: "Saturday, May 16, 2026",
+                events: [
+                    { id: 54, event: "Sat", title: "Mini High Roller Satellite", type: "satellite", time: "11:00 AM", buyin: "$55", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "2 Seats", dealer: false },
+                    { id: 55, event: "#6", title: "APLPT Classic Day 2", type: "nlh", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "$30,000", dealer: true },
+                    { id: 56, event: "#2", title: "Main Event Flight 7", type: "main-event", time: "11:30 AM", buyin: "$480", stack: "50K", blinds: "30m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 57, event: "#20", title: "Jackstar Super High Roller D2", type: "high-roller", time: "12:00 PM", buyin: "$1,500", stack: "80K", blinds: "40m", reentry: "Unlimited", guarantee: "$200,000", dealer: true },
+                    { id: 58, event: "#25", title: "NLH Mini High Roller", type: "nlh", time: "1:00 PM", buyin: "$460", stack: "50K", blinds: "25m", reentry: "Unlimited", guarantee: "$50,000", dealer: true },
+                    { id: 59, event: "#26", title: "The Big NLH $120", type: "nlh", time: "2:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 60, event: "Sat", title: "Think Fast 500 Satellite", type: "satellite", time: "4:00 PM", buyin: "$60", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 61, event: "#27", title: "Think Fast Five Hundred", type: "nlh", time: "5:00 PM", buyin: "$500", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 62, event: "#28", title: "NLH Teams Event", type: "special", time: "6:00 PM", buyin: "$200", stack: "40K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 63, event: "#2", title: "Main Event Flight 8 Turbo", type: "main-event", time: "7:30 PM", buyin: "$480", stack: "50K", blinds: "15m", reentry: "1 Re-Entry", guarantee: "$200,000", dealer: true },
+                    { id: 64, event: "#29", title: "Saturday Night Hyper", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "20K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 65, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "9:00 PM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
+                ]
+            },
+            {
+                day: "Sun",
+                date: "May 17",
+                fullDate: "Sunday, May 17, 2026",
+                events: [
+                    { id: 66, event: "Sat", title: "Monster Stack Satellite", type: "satellite", time: "11:00 AM", buyin: "$45", stack: "15K", blinds: "15m", reentry: "Unlimited", guarantee: "5 Seats", dealer: false },
+                    { id: 67, event: "#2", title: "Main Event Day 2", type: "main-event", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "40m", reentry: "-", guarantee: "$200,000", dealer: true },
+                    { id: 68, event: "#30", title: "Monster Stack", type: "nlh", time: "12:00 PM", buyin: "$360", stack: "75K", blinds: "20m", reentry: "Unlimited", guarantee: "$75,000", dealer: true },
+                    { id: 69, event: "#31", title: "PLO", type: "plo", time: "1:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 70, event: "#32", title: "Sunday NLH", type: "nlh", time: "3:00 PM", buyin: "$100", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 71, event: "#33", title: "Shot Clock Terminator ($200/KO)", type: "bounty", time: "3:30 PM", buyin: "$660", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 72, event: "#34", title: "Freezeout Finisher", type: "nlh", time: "5:00 PM", buyin: "$120", stack: "20K", blinds: "15m", reentry: "No Re-Entry", guarantee: "-", dealer: false }
+                ]
+            }
+        ];
+
+        let selectedEvents = new Set();
+        let currentDay = 0;
+        let currentView = 'all';
+        let filterStates = {
+            'main-event': null, 'high-roller': null, 'nlh': null,
+            'plo': null, 'satellite': null, 'bounty': null, 'special': null
+        };
+
+        function init() {
+            renderDayTabs();
+            renderEvents();
+            setupEventListeners();
+        }
+
+        function renderDayTabs() {
+            const tabs = document.getElementById('dayTabs');
+            tabs.innerHTML = tournamentData.map((day, i) => `
+                <button class="day-tab ${i === currentDay ? 'active' : ''}" data-day="${i}">
+                    ${day.day}
+                    <span class="tab-date">${day.date}</span>
+                </button>
+            `).join('');
+        }
+
+        function renderEvents() {
+            const container = document.getElementById('eventsContainer');
+            const day = tournamentData[currentDay];
+            const filteredEvents = day.events.filter(shouldShowEvent);
+
+            if (filteredEvents.length === 0) {
+                container.innerHTML = '<div class="no-events">No events match your filters</div>';
+                return;
+            }
+
+            container.innerHTML = filteredEvents.map(event => `
+                <div class="event-card ${event.type} ${selectedEvents.has(event.id) ? 'selected' : ''}" data-id="${event.id}">
+                    <div class="event-header">
+                        <span class="event-time">${event.time}</span>
+                        ${event.dealer ? '<span class="dealer-badge">Dealer Dealt</span>' : ''}
+                    </div>
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-details">
+                        <span class="event-detail buyin">${event.buyin}</span>
+                        <span class="event-detail">${event.stack}</span>
+                        <span class="event-detail">${event.blinds}</span>
+                        ${event.guarantee !== '-' ? `<span class="event-detail guarantee">${event.guarantee}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function shouldShowEvent(event) {
+            if (currentView === 'selected' && !selectedEvents.has(event.id)) return false;
+            const includes = Object.entries(filterStates).filter(([k, v]) => v === 'include').map(([k]) => k);
+            const excludes = Object.entries(filterStates).filter(([k, v]) => v === 'exclude').map(([k]) => k);
+            if (excludes.includes(event.type)) return false;
+            if (includes.length > 0 && !includes.includes(event.type)) return false;
+            return true;
+        }
+
+        function setupEventListeners() {
+            document.getElementById('dayTabs').addEventListener('click', (e) => {
+                const tab = e.target.closest('.day-tab');
+                if (tab) {
+                    currentDay = parseInt(tab.dataset.day);
+                    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderEvents();
+                }
+            });
+
+            document.getElementById('eventsContainer').addEventListener('click', (e) => {
+                const card = e.target.closest('.event-card');
+                if (card) {
+                    const id = parseInt(card.dataset.id);
+                    if (selectedEvents.has(id)) {
+                        selectedEvents.delete(id);
+                    } else {
+                        selectedEvents.add(id);
+                    }
+                    updateSelectedPanel();
+                    renderEvents();
+                }
+            });
+
+            document.getElementById('filterToggleBtn').addEventListener('click', () => {
+                document.getElementById('filtersPanel').classList.toggle('open');
+            });
+
+            document.getElementById('filterButtons').addEventListener('click', (e) => {
+                const btn = e.target.closest('.filter-btn');
+                if (btn) {
+                    const type = btn.dataset.type;
+                    if (filterStates[type] === null) filterStates[type] = 'include';
+                    else if (filterStates[type] === 'include') filterStates[type] = 'exclude';
+                    else filterStates[type] = null;
+                    updateFilterButtons();
+                    renderEvents();
+                }
+            });
+
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentView = e.target.dataset.view;
+                    renderEvents();
+                });
+            });
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn[data-type]').forEach(btn => {
+                const state = filterStates[btn.dataset.type];
+                btn.classList.remove('include', 'exclude');
+                if (state === 'include') btn.classList.add('include');
+                else if (state === 'exclude') btn.classList.add('exclude');
+            });
+        }
+
+        function updateSelectedPanel() {
+            const panel = document.getElementById('selectedPanel');
+            document.getElementById('selectedCount').textContent = selectedEvents.size;
+            panel.classList.toggle('visible', selectedEvents.size > 0);
+            document.body.classList.toggle('has-selection', selectedEvents.size > 0);
+        }
+
+        function exportSelectedEvents() {
+            const selected = [];
+            tournamentData.forEach(day => {
+                day.events.forEach(event => {
+                    if (selectedEvents.has(event.id)) {
+                        selected.push({ ...event, fullDate: day.fullDate });
+                    }
+                });
+            });
+            const text = selected.map(e =>
+                `${e.fullDate}\n${e.title}\nTime: ${e.time} | Buy-in: ${e.buyin}\nStack: ${e.stack} | Blinds: ${e.blinds}\nDealer Dealt: ${e.dealer ? 'Yes' : 'No'}`
+            ).join('\n\n---\n\n');
+            const blob = new Blob([`APLPT QUEENSLAND MAY 2026 - MY SCHEDULE\nSouthport Sharks, Gold Coast\n\n${text}`], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'APLPT-Queensland-May-2026-Schedule.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        init();
+    </script>
+</body>
+</html>
