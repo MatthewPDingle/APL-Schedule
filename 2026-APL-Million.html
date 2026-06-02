@@ -210,7 +210,7 @@
         .event-card.nlh { border-left-color: #339af0; }
         .event-card.plo { border-left-color: #0ca678; }
         .event-card.satellite { border-left-color: #f59f00; }
-        .event-card.bounty { border-left-color: #e64980; }
+        .event-card.bounty { border-left-color: #c026d3; }
         .event-card.special { border-left-color: #20c997; }
 
         .event-time {
@@ -341,9 +341,9 @@
             <div class="legend-item"><div class="legend-dot" style="background:#e03131"></div>Main Event</div>
             <div class="legend-item"><div class="legend-dot" style="background:#7950f2"></div>High Roller</div>
             <div class="legend-item"><div class="legend-dot" style="background:#339af0"></div>NLH</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#0ca678"></div>PLO</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#0ca678"></div>Other Variants</div>
             <div class="legend-item"><div class="legend-dot" style="background:#f59f00"></div>Satellite</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#e64980"></div>Bounty</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#c026d3"></div>Bounty</div>
             <div class="legend-item"><div class="legend-dot" style="background:#20c997"></div>Special</div>
             <div class="legend-item"><span class="dealer-badge">D</span> = Dealer Dealt</div>
         </div>
@@ -368,7 +368,7 @@
                 </button>
                 <button class="filter-btn" data-type="plo">
                     <span class="color-dot" style="background:#0ca678"></span>
-                    PLO
+                    Other Variants
                     <span class="state-icon"></span>
                 </button>
                 <button class="filter-btn" data-type="satellite">
@@ -377,13 +377,18 @@
                     <span class="state-icon"></span>
                 </button>
                 <button class="filter-btn" data-type="bounty">
-                    <span class="color-dot" style="background:#e64980"></span>
+                    <span class="color-dot" style="background:#c026d3"></span>
                     Bounty
                     <span class="state-icon"></span>
                 </button>
                 <button class="filter-btn" data-type="special">
                     <span class="color-dot" style="background:#20c997"></span>
                     Special
+                    <span class="state-icon"></span>
+                </button>
+                <button class="filter-btn" data-type="dealer">
+                    <span class="color-dot" style="background:#4263eb"></span>
+                    Dealer Dealt
                     <span class="state-icon"></span>
                 </button>
             </div>
@@ -457,7 +462,7 @@
                     { id: 28, event: "Sat", title: "APL Million Main Event Step 1 Satellite - 1 in 5 win", type: "satellite", time: "1:00 PM", buyin: "$40", stack: "10K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 29, event: "Sat", title: "APL Million Main Event Step 2 Satellite - 1 in 10 win", type: "satellite", time: "3:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 30, event: "#13", title: "PLO Freezeout Championship", type: "plo", time: "3:00 PM", buyin: "$1,150", stack: "50K", blinds: "30m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
-                    { id: 31, event: "#14", title: "Short Deck NLH", type: "special", time: "3:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 31, event: "#14", title: "Short Deck NLH", type: "plo", time: "3:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 32, event: "#15", title: "APL Million Main Event - Flight 1", type: "main-event", time: "4:00 PM", buyin: "$1,500", stack: "30K", blinds: "40m", reentry: "1 Re-Entry", guarantee: "$3,000,000", dealer: true },
                     { id: 33, event: "#16", title: "Sunday NLH", type: "nlh", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 34, event: "#17", title: "$880 Terminator ($200 Per K.O.)", type: "bounty", time: "5:00 PM", buyin: "$880", stack: "40K", blinds: "25m", reentry: "Unlimited", guarantee: "-", dealer: true },
@@ -544,7 +549,7 @@
                     { id: 87, event: "#42", title: "Thursday Target Freezeout", type: "nlh", time: "4:00 PM", buyin: "$360", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
                     { id: 88, event: "#15", title: "APL Million Main Event - Flight 3", type: "main-event", time: "4:00 PM", buyin: "$1,500", stack: "30K", blinds: "40m", reentry: "1 Re-Entry", guarantee: "$3,000,000", dealer: true },
                     { id: 89, event: "#43", title: "Time's Up (20-Second Shot Clock)", type: "nlh", time: "6:00 PM", buyin: "$300", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 90, event: "#44", title: "Short Deck", type: "special", time: "7:00 PM", buyin: "$350", stack: "40K", blinds: "-", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 90, event: "#44", title: "Short Deck", type: "plo", time: "7:00 PM", buyin: "$350", stack: "40K", blinds: "-", reentry: "Unlimited", guarantee: "-", dealer: true },
                     { id: 91, event: "#45", title: "Thursday Throwdown", type: "nlh", time: "8:00 PM", buyin: "$80", stack: "30K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 92, event: "Sat", title: "Golden Ticket (ME, JSTAR, CENT) Satellite - 1 in 10 win - 1 SEAT GTD", type: "satellite", time: "8:00 PM", buyin: "$600", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "$5,500", dealer: true },
                     { id: 93, event: "Sat", title: "High Roller PLO Satellite - 1 in 10 win", type: "satellite", time: "9:00 PM", buyin: "$290", stack: "30K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: true }
@@ -577,7 +582,7 @@
                 fullDate: "Saturday, August 22, 2026",
                 events: [
                     { id: 108, event: "#46", title: "Rapid-fire Accumulator - Day 2", type: "nlh", time: "11:00 AM", buyin: "Qualifiers", stack: "30K", blinds: "20m", reentry: "-", guarantee: "-", dealer: false },
-                    { id: 109, event: "#52", title: "H.E.R.O.S.", type: "special", time: "11:00 AM", buyin: "$1,100", stack: "40K", blinds: "-", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 109, event: "#52", title: "H.E.R.O.S.", type: "plo", time: "11:00 AM", buyin: "$1,100", stack: "40K", blinds: "-", reentry: "Unlimited", guarantee: "-", dealer: true },
                     { id: 110, event: "#48", title: "Six-hundred Six-max - Day 2", type: "nlh", time: "11:00 AM", buyin: "Qualifiers", stack: "50K", blinds: "30m", reentry: "-", guarantee: "$100,000", dealer: true },
                     { id: 111, event: "#15", title: "APL Million Main Event - Flight 5", type: "main-event", time: "11:30 AM", buyin: "$1,500", stack: "30K", blinds: "40m", reentry: "1 Re-Entry", guarantee: "$3,000,000", dealer: true },
                     { id: 112, event: "#53", title: "APL Million Single Bullet", type: "nlh", time: "12:00 PM", buyin: "$275", stack: "40K", blinds: "20m", reentry: "No Re-Entry", guarantee: "-", dealer: true },
@@ -628,7 +633,7 @@
                     { id: 143, event: "#69", title: "NLH120", type: "nlh", time: "4:00 PM", buyin: "$120", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 144, event: "#68", title: "Six Hundred Sprint", type: "nlh", time: "4:00 PM", buyin: "$600", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
                     { id: 145, event: "#70", title: "PLO Shot Clock - Day 1", type: "plo", time: "6:00 PM", buyin: "$1,100", stack: "40K", blinds: "30m", reentry: "Unlimited", guarantee: "-", dealer: true },
-                    { id: 146, event: "#71", title: "The Big Crazy Pineapple", type: "special", time: "7:00 PM", buyin: "$350", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
+                    { id: 146, event: "#71", title: "The Big Crazy Pineapple", type: "plo", time: "7:00 PM", buyin: "$350", stack: "40K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: true },
                     { id: 147, event: "#72", title: "Hyper Turbo Terminator ($20 Per K.O.)", type: "bounty", time: "8:00 PM", buyin: "$120", stack: "30K", blinds: "10m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 148, event: "Sat", title: "APL Million Main Event/Jackstar MEGA SATELLITE  **25 SEAT GUARANTEE**", type: "satellite", time: "8:00 PM", buyin: "$175", stack: "20K", blinds: "20m", reentry: "Unlimited", guarantee: "$37,500", dealer: false }
                 ]
@@ -676,7 +681,7 @@
                     { id: 170, event: "Sat", title: "APL Million Main Event Step 2 Satellite - 1 in 10 win", type: "satellite", time: "3:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 171, event: "#81", title: "NLH Mini High Roller", type: "high-roller", time: "4:00 PM", buyin: "$460", stack: "50K", blinds: "25m", reentry: "Unlimited", guarantee: "$100,000", dealer: true },
                     { id: 172, event: "#82", title: "NLH Teams Event", type: "special", time: "6:00 PM", buyin: "$200", stack: "40K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false },
-                    { id: 173, event: "#83", title: "Crazy Pineapple", type: "special", time: "7:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
+                    { id: 173, event: "#83", title: "Crazy Pineapple", type: "plo", time: "7:00 PM", buyin: "$150", stack: "30K", blinds: "20m", reentry: "Unlimited", guarantee: "-", dealer: false },
                     { id: 174, event: "Sat", title: "APL Million Main Event Step 2 Satellite - 1 in 10 win", type: "satellite", time: "9:00 PM", buyin: "$170", stack: "20K", blinds: "15m", reentry: "Unlimited", guarantee: "-", dealer: false }
                 ]
             },
@@ -747,7 +752,8 @@
             'plo': null,
             'satellite': null,
             'bounty': null,
-            'special': null
+            'special': null,
+            'dealer': null
         };
 
         function renderCalendar() {
@@ -806,14 +812,22 @@
                 return false;
             }
 
-            const includes = Object.entries(filterStates).filter(([k, v]) => v === 'include').map(([k]) => k);
-            const excludes = Object.entries(filterStates).filter(([k, v]) => v === 'exclude').map(([k]) => k);
+            const includes = Object.entries(filterStates).filter(([k, v]) => k !== 'dealer' && v === 'include').map(([k]) => k);
+            const excludes = Object.entries(filterStates).filter(([k, v]) => k !== 'dealer' && v === 'exclude').map(([k]) => k);
 
             if (excludes.includes(event.type)) {
                 return false;
             }
 
             if (includes.length > 0 && !includes.includes(event.type)) {
+                return false;
+            }
+
+            if (filterStates.dealer === 'include' && !event.dealer) {
+                return false;
+            }
+
+            if (filterStates.dealer === 'exclude' && event.dealer) {
                 return false;
             }
 
