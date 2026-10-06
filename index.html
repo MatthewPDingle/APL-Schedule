@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APL Poker Tour Calendars</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #212529; }
+        header { background: linear-gradient(135deg, #c92a2a, #e03131); color: #fff; padding: 20px 16px; }
+        header h1 { font-size: 1.3em; }
+        header p { font-size: .85em; opacity: .9; margin-top: 4px; }
+        main { max-width: 640px; margin: 0 auto; padding: 16px; }
+        .series { background: #fff; border-radius: 10px; padding: 14px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+        .series h2 { font-size: 1em; }
+        .series .sub { font-size: .8em; color: #868e96; margin-bottom: 10px; }
+        .links { display: flex; gap: 8px; }
+        .links a { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 600; font-size: .9em; text-decoration: none; background: #1971c2; color: #fff; }
+        .links a.alt { background: #e9ecef; color: #343a40; }
+        .note { font-size: .78em; color: #868e96; margin-top: 14px; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>APL Poker Tour Calendars</h1>
+        <p>Pick your events once &mdash; they stay highlighted next time you open them.</p>
+    </header>
+    <main id="list"></main>
+    <script>
+        var series = [
+            ['2026 APL Million', '2026-APL-Million', 'Southport Sharks, Gold Coast'],
+            ['APLPT Adelaide June 2026', 'APLPT-Adelaide-June-2026', 'Adelaide'],
+            ['APLPT Queensland May 2026', 'APLPT-Queensland-May-2026', 'Gold Coast'],
+            ['APL NQ Classic February 2026', 'NQ-Classic-2026', 'The Ville, Townsville'],
+            ['APLPT Queensland January 2026', 'APLPT-Southport-Jan-2026', 'Southport Sharks, Gold Coast']
+        ];
+        var html = '';
+        series.forEach(function (s) {
+            html += '<div class="series"><h2>' + s[0] + '</h2><div class="sub">' + s[2] + '</div><div class="links">' +
+                '<a href="' + s[1] + '-mobile.html">Phone</a><a class="alt" href="' + s[1] + '.html">Desktop</a></div></div>';
+        });
+        document.getElementById('list').innerHTML = html +
+            '<p class="note">Your picks are stored on this device in this browser. Use the &#128190; button inside a calendar to download a backup or copy a link that restores your picks anywhere.</p>';
+        if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+            navigator.serviceWorker.register('sw.js').catch(function () {});
+        }
+    </script>
+</body>
+</html>
