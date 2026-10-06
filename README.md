@@ -9,6 +9,7 @@ Single-file, offline-friendly schedule calendars for Australian Poker League (AP
 | APL NQ Classic February 2026 | `NQ-Classic-2026.html` | `NQ-Classic-2026-mobile.html` |
 | APLPT Queensland May 2026 | `APLPT-Queensland-May-2026.html` | `APLPT-Queensland-May-2026-mobile.html` |
 | APLPT Adelaide June 2026 | `APLPT-Adelaide-June-2026.html` | `APLPT-Adelaide-June-2026-mobile.html` |
+| The Ville 600 October 2026 | `The-Ville-600-Oct-2026.html` | `The-Ville-600-Oct-2026-mobile.html` |
 
 `index.html` links to all of them.
 
